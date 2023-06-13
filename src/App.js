@@ -1,21 +1,33 @@
-import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+// Components
+import MyNavbar from "./Components/Navbar";
+
+// Pages
 import RegisterPage from "./Pages/Register";
 import LoginPage from "./Pages/Login";
-import Navbar from "./Components/Navbar";
-import ListIngPage from "./Pages/Lists";
-import "bootstrap/dist/css/bootstrap.min.css"
-import { Routes, Route } from "react-router-dom";
-import './App.css';
+import ListingPage from "./Pages/List";
+import HomePage from "./Pages/Home";
+import BookDetailPage from "./Pages/Detail";
+import OrdersPage from "./Pages/ViewOrder";
+import ViewOrderDetails from "./Pages/ViewOrderDetail";
+// CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import React from "react";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <MyNavbar />
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
-        <Route path="/register" element={< RegisterPage />} />
-        <Route path="/Login" element={< LoginPage />} />
-        <Route path="/Book/Lists" element={< ListIngPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/book/list" element={<ListingPage />} />
+        <Route path="/book/view/:bookId" element={<BookDetailPage />} />
+        <Route path="/book/orders" element={<OrdersPage />} />
+        <Route path="/books/orders/:bookId" element={<ViewOrderDetails />} />
       </Routes>
     </div>
   );

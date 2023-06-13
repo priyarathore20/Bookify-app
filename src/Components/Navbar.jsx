@@ -1,23 +1,21 @@
-import React from 'react'
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
-const Navbar = () => {
+const MyNavbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-dark-subtle text-black">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">Navbar</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            <a className="nav-link active" aria-current="page" href="#">Home</a>
-            <a className="nav-link active" href="/Book/Lists">Add Listings</a>
+    <Navbar bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link href="">Home</Nav.Link>
+          <Nav.Link href="/book/list">Add Listing</Nav.Link>
+          <Nav.Link href="/book/orders">Orders</Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
+};
 
-          </div>
-        </div>
-      </div>
-    </nav>
-  )
-}
-
-export default Navbar
+export default MyNavbar;

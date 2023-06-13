@@ -1,43 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import { useFirebase } from '../Context/Firebase-context'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+import { useFirebase } from "../Context/Firebase";
 
 const RegisterPage = () => {
-  const firebase = useFirebase()
-  const [Email, setEmail] = useState(null)
-  const [Password, setPassword] = useState(null)
-  const Navigate = useNavigate()
+  const firebase = useFirebase();
+  const navigate = useNavigate();
 
-  const HandleSubmit = async (e) => {
-    e.preventDefault()
-    await firebase.signupUserWithEmailAndPassword(Email, Password)
-  }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
     if (firebase.isLoggedIn) {
-      console.log(firebase)
-      Navigate('/')
+      // navigate to home
+      navigate("/");
     }
-  }, [firebase, Navigate])
+  }, [firebase, navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Signin up a user...");
+    const result = await firebase.signupUserWithEmailAndPassword(
+      email,
+      password
+    );
+    console.log("Successfull", result);
+  };
 
   return (
-    <div className='container' >
-      <Form onSubmit={HandleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label >Email address</Form.Label>
-          <Form.Control onChange={e => setEmail(e.target.value)} value={Email} type="email" placeholder='Enter Email' />
-          <Form.Text className="form-text">We'll never share your email with anyone else.</Form.Text>
+    <div className="container mt-5">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            type="email"
+            placeholder="Enter email"
+          />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label >Password</Form.Label>
-          <Form.Control onChange={e => setPassword(e.target.value)} value={Password} type="password" placeholder='Password' />
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            type="password"
+            placeholder="Password"
+          />
         </Form.Group>
-        <Button variant='primary' type="submit" >
-          Create Account</Button>
+
+        <Button variant="primary" type="submit">
+          Create Account
+        </Button>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;
